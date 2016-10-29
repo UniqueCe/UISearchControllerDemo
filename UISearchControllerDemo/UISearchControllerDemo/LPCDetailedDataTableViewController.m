@@ -8,7 +8,9 @@
 
 #import "LPCDetailedDataTableViewController.h"
 
-@interface LPCDetailedDataTableViewController ()
+@interface LPCDetailedDataTableViewController ()<UISearchResultsUpdating>
+
+@property(nonatomic,strong) UISearchController *searchController;
 
 @end
 
@@ -18,18 +20,47 @@
     [super viewDidLoad];
 
     self.title = @"详情数据";
+    
+    [self setupSearchController];
+}
+
+#pragma mark-->创建搜索框
+- (void)setupSearchController {
+    
+    //如果在同一视图中展现搜索结果传送“nil”就可以啦！！！！！
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    
+    self.searchController.searchResultsUpdater = self;
+    
+    self.tableView.tableHeaderView = self.searchController.searchBar;
+    
+    self.definesPresentationContext = YES;
+    
+    //显示一个灰色的背景-->默认是显示的
+    //self.searchController.dimsBackgroundDuringPresentation = NO;
+    
+    //不隐藏Navigation-->默认是隐藏的
+    //self.searchController.hidesNavigationBarDuringPresentation = NO;
+    
+    self.searchController.searchBar.placeholder = @"搜索";
+}
+
+#pragma mark-->UISearchResultsUpdating
+-(void)updateSearchResultsForSearchController:(UISearchController *)searchController {
+    
+    
 }
 
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
+
     return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
+
     return 0;
 }
 
