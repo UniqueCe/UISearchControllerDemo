@@ -41,9 +41,22 @@ static NSString *seatchCell = @"seatchCell";
     
     cell.textLabel.text = _searchMutableArray[indexPath.row];
     
+    cell.selectionStyle = UITextBorderStyleNone;
+    
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSString *message = [NSString stringWithFormat:@"已选中第%ld行",indexPath.row + 1 ];
+    
+    UIAlertController *alertCon = [UIAlertController alertControllerWithTitle:@"提示" message:message preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alertCon addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil ]];
+    
+    [self presentViewController:alertCon animated:YES completion:nil];
+    
+}
 
 
 
