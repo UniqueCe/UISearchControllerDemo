@@ -112,6 +112,26 @@
         }
     }
 
+    NSString *searchStr = self.searchController.searchBar.text;
+    
+    [self filteringText:searchStr];
+}
+
+#pragma mark-->使用谓词匹配搜索结果
+- (void)filteringText:(NSString *)searchStr  {
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF CONTAINS[c] %@",searchStr];
+    
+    if (_searchDataArray != nil) {
+        
+        [_searchDataArray removeAllObjects];
+    }
+    
+    _searchDataArray = [NSMutableArray arrayWithArray:[_dataArray filteredArrayUsingPredicate:predicate]];
+    
+    _searchTVC.searchMutableArray = _searchDataArray;
+    
+    [_searchTVC.tableView reloadData];
     
     
 }

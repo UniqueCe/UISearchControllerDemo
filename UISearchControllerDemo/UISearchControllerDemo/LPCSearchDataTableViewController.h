@@ -10,4 +10,6 @@
 
 @interface LPCSearchDataTableViewController : UITableViewController
 
+@property(nonatomic,strong) NSArray *searchMutableArray;
+
 @end
