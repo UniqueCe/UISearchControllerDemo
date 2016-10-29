@@ -18,7 +18,7 @@ static NSString *seatchCell = @"seatchCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+        
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:seatchCell];
 
     self.tableView.tableFooterView = [UIView new];
