@@ -8,6 +8,8 @@
 
 #import "LPCSearchDataTableViewController.h"
 
+static NSString *seatchCell = @"seatchCell";
+
 @interface LPCSearchDataTableViewController ()
 
 @end
@@ -17,29 +19,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:seatchCell];
+
+    self.tableView.tableFooterView = [UIView new];
 }
 
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
-    
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return 0;
+    return _searchMutableArray.count;
 }
 
-/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:seatchCell forIndexPath:indexPath];
     
-    // Configure the cell...
+    cell.textLabel.text = _searchMutableArray[indexPath.row];
     
     return cell;
 }
-*/
+
 
 
 
