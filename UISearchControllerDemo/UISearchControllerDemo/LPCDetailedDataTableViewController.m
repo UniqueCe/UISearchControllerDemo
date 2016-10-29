@@ -7,10 +7,13 @@
 //
 
 #import "LPCDetailedDataTableViewController.h"
+#import "LPCSearchDataTableViewController.h"
 
 @interface LPCDetailedDataTableViewController ()<UISearchResultsUpdating>
 
 @property(nonatomic,strong) UISearchController *searchController;
+
+@property(nonatomic,strong) LPCSearchDataTableViewController *searchTVC;
 
 @end
 
@@ -50,8 +53,9 @@
 #pragma mark-->创建搜索框
 - (void)setupSearchController {
     
-    //如果在同一视图中展现搜索结果传送“nil”就可以啦！！！！！
-    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    _searchTVC = [[LPCSearchDataTableViewController alloc] init];
+    
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:_searchTVC];
     
     self.searchController.searchResultsUpdater = self;
     
@@ -67,13 +71,6 @@
     
     self.searchController.searchBar.placeholder = @"搜索";
 }
-
-#pragma mark-->UISearchResultsUpdating
--(void)updateSearchResultsForSearchController:(UISearchController *)searchController {
-    
-    
-}
-
 
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -95,6 +92,29 @@
     return cell;
 }
 
+#pragma mark-->UISearchResultsUpdating
+-(void)updateSearchResultsForSearchController:(UISearchController *)searchController {
+    
+    _searchController.searchBar.showsCancelButton = YES;
+    
+    for(UIView *v in [searchController.searchBar subviews]) {
+        
+        for (UIButton *button in [v subviews]){
+            
+            if([button isKindOfClass:[UIButton class]]){
+                
+                UIButton *btn = (UIButton *)button;
+                
+                [btn setTitle:@"取消" forState:UIControlStateNormal];
+                
+                [btn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+            }
+        }
+    }
+
+    
+    
+}
 
 
 
