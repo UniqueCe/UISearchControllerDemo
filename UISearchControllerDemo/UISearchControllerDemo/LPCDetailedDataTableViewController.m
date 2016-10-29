@@ -14,14 +14,37 @@
 
 @end
 
-@implementation LPCDetailedDataTableViewController
+@implementation LPCDetailedDataTableViewController {
+    
+    NSArray *_dataArray;
+
+    NSMutableArray *_searchDataArray;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     self.title = @"详情数据";
     
+    [self loadData];
+    
     [self setupSearchController];
+    
+}
+
+#pragma mark-->数据源
+- (void)loadData {
+    
+    //模拟数据
+    NSMutableArray *resultArray = [[NSMutableArray alloc] init];
+    
+    for (int i = 0; i< 20; i++) {
+        
+        NSString *dataString = [NSString stringWithFormat:@"%d",i];
+        
+        [resultArray addObject:dataString];
+    }
+    _dataArray = resultArray.copy;
 }
 
 #pragma mark-->创建搜索框
@@ -53,26 +76,25 @@
 
 
 #pragma mark - Table view data source
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return 0;
+    return _dataArray.count;
 }
 
-/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
     
-    // Configure the cell...
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellID" forIndexPath:indexPath];
+    
+    cell.textLabel.text = _dataArray[indexPath.row];
     
     return cell;
 }
-*/
+
 
 
 
